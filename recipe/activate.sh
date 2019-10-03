@@ -30,6 +30,7 @@ in order to use the stack!
 }
 
 # add to the flags for building stuff with eups
-CPATH="${CONDA_PREFIX}/include"  # searched after the command line
-CFLAGS="${CFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
-CXXFLAGS="${CXXFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
+export CPATH="${CONDA_PREFIX}/include"  # searched after the command line
+export LIBRARY_PATH=${CONDA_PREFIX}/lib
+export CFLAGS="${CFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
+export CXXFLAGS="${CXXFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
