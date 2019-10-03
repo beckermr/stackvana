@@ -30,5 +30,6 @@ in order to use the stack!
 }
 
 # add to the flags for building stuff with eups
-CFLAGS="${CFLAGS} -I${CONDA_PREFIX}/include -Wl,-rpath,${CONDA_PREFIX}/lib"
-CXXFLAGS="${CXXFLAGS} -I${CONDA_PREFIX}/include -Wl,-rpath,${CONDA_PREFIX}/lib"
+CPATH="${CONDA_PREFIX}/include"  # searched after the command line
+CFLAGS="${CFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
+CXXFLAGS="${CXXFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
