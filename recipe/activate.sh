@@ -28,3 +28,7 @@ You must run:
 in order to use the stack!
 "
 }
+
+# add to the flags for building stuff with eups
+CFLAGS="${CFLAGS} -I${CONDA_PREFIX}/include -Wl,-rpath,${CONDA_PREFIX}/lib"
+CXXFLAGS="${CXXFLAGS} -I${CONDA_PREFIX}/include -Wl,-rpath,${CONDA_PREFIX}/lib"
