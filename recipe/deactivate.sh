@@ -5,22 +5,21 @@ unset EUPS_PKGROOT
 unset EUPS_DIR
 unset LSST_CONDA_ENV_NAME
 unset LSST_HOME
+unset BR2_PACKAGE_LIBICONV
 
-# conda env includes are searched after the command line -I paths
+# remove stackvana env changes
 stackvana_backup_and_append_envvar \
     deactivate \
     CPATH \
     "${CONDA_PREFIX}/include" \
     ":"
 
-# add conda nv libraries for linking
 stackvana_backup_and_append_envvar \
     deactivate \
     LIBRARY_PATH \
     "${CONDA_PREFIX}/lib" \
     ":"
 
-# set rpaths to rsolve links properly at run time
 stackvana_backup_and_append_envvar \
     deactivate \
     LDFLAGS \
