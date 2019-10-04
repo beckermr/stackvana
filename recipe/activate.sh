@@ -30,7 +30,26 @@ in order to use the stack!
 }
 
 # add to the flags for building stuff with eups
-export CPATH="${CONDA_PREFIX}/include"  # searched after the command line
-export LIBRARY_PATH=${CONDA_PREFIX}/lib
-export CFLAGS="${CFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
-export CXXFLAGS="${CXXFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib"
+if [[ ! ${CPATH} ]]; then
+    export CPATH="${CONDA_PREFIX}/include"  # searched after the command line
+else
+    export CPATH="${CPATH}:${CONDA_PREFIX}/include"  # searched after the command line
+fi
+
+if [[ ! ${LIBRARY_PATH} ]]; then
+    export LIBRARY_PATH="${CONDA_PREFIX}/lib"
+else
+    export LIBRARY_PATH="${LIBRARY_PATH}:${CONDA_PREFIX}/lib"
+fi
+
+if [[ ! ${LD_LIBRARY_PATH} ]]; then
+    export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib"
+else
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${CONDA_PREFIX}/lib"
+fi
+
+if [[ ! ${LDFLAGS} ]]; then
+    export LDFLAGS="-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib"
+else
+    export LDFLAGS="${LDFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib"
+fi
