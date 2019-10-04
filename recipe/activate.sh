@@ -42,10 +42,18 @@ else
     export LIBRARY_PATH="${LIBRARY_PATH}:${CONDA_PREFIX}/lib"
 fi
 
-if [[ ! ${LD_LIBRARY_PATH} ]]; then
-    export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib"
+if [[ `uname -s` == "Darwin" ]]; then
+    if [[ ! ${DYLD_LIBRARY_PATH} ]]; then
+        export DYLD_LIBRARY_PATH="${CONDA_PREFIX}/lib"
+    else
+        export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:${CONDA_PREFIX}/lib"
+    fi
 else
-    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${CONDA_PREFIX}/lib"
+    if [[ ! ${LD_LIBRARY_PATH} ]]; then
+        export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib"
+    else
+        export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${CONDA_PREFIX}/lib"
+    fi
 fi
 
 if [[ ! ${LDFLAGS} ]]; then
