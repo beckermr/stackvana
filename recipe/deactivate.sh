@@ -11,19 +11,25 @@ unset BR2_PACKAGE_LIBICONV
 stackvana_backup_and_append_envvar \
     deactivate \
     CPATH \
-    "${CONDA_PREFIX}/include" \
+    "" \
     ":"
 
 stackvana_backup_and_append_envvar \
     deactivate \
     LIBRARY_PATH \
-    "${CONDA_PREFIX}/lib" \
+    "" \
     ":"
 
 stackvana_backup_and_append_envvar \
     deactivate \
     LDFLAGS \
-    "-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib" \
+    "" \
+    " "
+
+stackvana_backup_and_append_envvar \
+    deactivate \
+    SCONSFLAGS \
+    "" \
     " "
 
 unset -f stackvana_backup_and_append_envvar

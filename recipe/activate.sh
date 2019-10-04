@@ -86,3 +86,21 @@ stackvana_backup_and_append_envvar \
     LDFLAGS \
     "-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib" \
     " "
+
+# make scons happy - from the galsim conda recipe
+NEW_SCONSFLAGS=""
+if [ -n "${GXX}" ]; then
+    # SConstruct wants to find 'g++' in name, and conda will have gnu-c++ in name
+    NEW_SCONSFLAGS+="CXX=${GXX} "
+fi
+
+if [[ `uname -s` == "Darwin" ]]; then
+    # Darwin
+    NEW_SCONSFLAGS+="CXX=${CLANGXX} DYLD_LIBRARY_PATH=${CONDA_PREFIX}/lib "
+fi
+
+stackvana_backup_and_append_envvar \
+    activate \
+    SCONSFLAGS \
+    "${NEW_SCONSFLAGS}" \
+    " "
