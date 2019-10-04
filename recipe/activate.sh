@@ -100,6 +100,6 @@ fi
 
 stackvana_backup_and_append_envvar \
     activate \
-    SCONSFLAGS \
+    EUPSPKG_SCONSFLAGS \
     "${NEW_SCONSFLAGS}" \
     " "
