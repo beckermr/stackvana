@@ -54,6 +54,7 @@ requirements:
     - cxx-compiler  # [linux]
     - xorg-libxt  # [linux]
     - zlib =1.2.11  # [linux]
+    - libiconv  # [linux]
 
     #
     # - setuptools

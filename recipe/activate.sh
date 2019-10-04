@@ -29,35 +29,49 @@ in order to use the stack!
 "
 }
 
-# add to the flags for building stuff with eups
-if [[ ! ${CPATH} ]]; then
-    export CPATH="${CONDA_PREFIX}/include"  # searched after the command line
-else
-    export CPATH="${CPATH}:${CONDA_PREFIX}/include"  # searched after the command line
-fi
+function _backup_and_append_envvar() {
+    local way=$1
+    local envvar=$2
+    local appval=$3
+    local appsep=$4
+    eval oldval="\$${envvar}"
 
-if [[ ! ${LIBRARY_PATH} ]]; then
-    export LIBRARY_PATH="${CONDA_PREFIX}/lib"
-else
-    export LIBRARY_PATH="${LIBRARY_PATH}:${CONDA_PREFIX}/lib"
-fi
-
-if [[ `uname -s` == "Darwin" ]]; then
-    if [[ ! ${DYLD_LIBRARY_PATH} ]]; then
-        export DYLD_LIBRARY_PATH="${CONDA_PREFIX}/lib"
+    if [[ ${way} == "activate" ]]; then
+        eval "export STACKVANA_BACKUP_${envvar}=${oldval}"
+        if [[ ! ${oldval} ]]; then
+            eval "export ${envvar}=${appval}"
+        else
+            eval "export ${envvar}=${oldval}${appsep}${appval}"
+        fi
     else
-        export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:${CONDA_PREFIX}/lib"
-    fi
-else
-    if [[ ! ${LD_LIBRARY_PATH} ]]; then
-        export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib"
-    else
-        export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${CONDA_PREFIX}/lib"
-    fi
-fi
+        eval backval="\$STACKVANA_BACKUP_${envvar}"
 
-if [[ ! ${LDFLAGS} ]]; then
-    export LDFLAGS="-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib"
-else
-    export LDFLAGS="${LDFLAGS} -Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib"
-fi
+        if [[ ! ${backval} ]]; then
+            eval "unset ${envvar}"
+        else
+            eval "export ${envvar}=${backval}"
+        fi
+        eval "unset STACKVANA_BACKUP_${envvar}"
+    fi
+}
+
+# conda env includes are searched after the command line -I paths
+_backup_and_append_envvar \
+    activate \
+    CPATH \
+    "${CONDA_PREFIX}/include" \
+    ":"
+
+# add conda nv libraries for linking
+_backup_and_append_envvar \
+    activate \
+    LIBRARY_PATH \
+    "${CONDA_PREFIX}/lib" \
+    ":"
+
+# set rpaths to rsolve links properly at run time
+_backup_and_append_envvar \
+    activate \
+    LDFLAGS \
+    "-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib" \
+    " "
