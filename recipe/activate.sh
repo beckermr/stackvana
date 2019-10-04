@@ -13,9 +13,6 @@ else
 fi
 export EUPS_PKGROOT="${EUPS_PKGROOT}"
 
-# this is needed to build log4cxx
-export BR2_PACKAGE_LIBICONV=y
-
 # try except
 {
     setup lsst_distrib

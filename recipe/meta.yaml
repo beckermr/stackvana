@@ -52,6 +52,7 @@ requirements:
     # these are deps needed to compile from source on linx
     - c-compiler  # [linux]
     - cxx-compiler  # [linux]
+    - fortran-compiler  # [linux]
     - xorg-libxt  # [linux]
     - zlib =1.2.11  # [linux]
     - libiconv  # [linux]
