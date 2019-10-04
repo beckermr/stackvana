@@ -49,9 +49,12 @@ requirements:
     - snappy =1.1.7
     - numexpr =2.6.9
 
+    # these are deps needed to compile from source on linx
     - c-compiler  # [linux]
     - cxx-compiler  # [linux]
     - xorg-libxt  # [linux]
+    - zlib =1.2.11  # [linux]
+    - libiconv  # [linux]
 
     #
     # - setuptools

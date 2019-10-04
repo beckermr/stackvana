@@ -8,3 +8,6 @@ if [[ ! $LSST_CONDA_ENV_NAME ]]
 then
     exit 1
 fi
+
+echo "environment vars:"
+env
