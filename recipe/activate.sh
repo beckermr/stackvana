@@ -95,8 +95,7 @@ if [ -n "${GXX}" ]; then
 fi
 
 if [[ `uname -s` == "Darwin" ]]; then
-    # Darwin
-    NEW_SCONSFLAGS+="CXX=${CLANGXX} DYLD_LIBRARY_PATH=${CONDA_PREFIX}/lib "
+    NEW_SCONSFLAGS+="CXX=${CLANGXX} "
 fi
 
 stackvana_backup_and_append_envvar \
