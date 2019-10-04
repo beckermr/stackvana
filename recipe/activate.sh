@@ -26,6 +26,15 @@ You must run:
     setup lsst_distrib
 
 in order to use the stack!
+
+Notes:
+
+  - These commands only need to be run once. After that, activating a
+    conda env with this package will call 'setup lsst_distrib' automatically.
+  - On linux everything is built from source and so this command will take
+    approximately 2 hours.
+  - On OSX, pre-built binaries will be downloaded and installed. This process
+    takes about 10 minutes.
 "
 }
 
