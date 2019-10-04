@@ -29,7 +29,7 @@ in order to use the stack!
 "
 }
 
-function _backup_and_append_envvar() {
+function stackvana_backup_and_append_envvar() {
     local way=$1
     local envvar=$2
     local appval=$3
@@ -37,11 +37,11 @@ function _backup_and_append_envvar() {
     eval oldval="\$${envvar}"
 
     if [[ ${way} == "activate" ]]; then
-        eval "export STACKVANA_BACKUP_${envvar}=${oldval}"
+        eval "export STACKVANA_BACKUP_${envvar}=\"${oldval}\""
         if [[ ! ${oldval} ]]; then
-            eval "export ${envvar}=${appval}"
+            eval "export ${envvar}=\"${appval}\""
         else
-            eval "export ${envvar}=${oldval}${appsep}${appval}"
+            eval "export ${envvar}=\"${oldval}${appsep}${appval}\""
         fi
     else
         eval backval="\$STACKVANA_BACKUP_${envvar}"
@@ -49,28 +49,30 @@ function _backup_and_append_envvar() {
         if [[ ! ${backval} ]]; then
             eval "unset ${envvar}"
         else
-            eval "export ${envvar}=${backval}"
+            eval "export ${envvar}=\"${backval}\""
         fi
         eval "unset STACKVANA_BACKUP_${envvar}"
     fi
 }
 
+export -f stackvana_backup_and_append_envvar
+
 # conda env includes are searched after the command line -I paths
-_backup_and_append_envvar \
+stackvana_backup_and_append_envvar \
     activate \
     CPATH \
     "${CONDA_PREFIX}/include" \
     ":"
 
 # add conda nv libraries for linking
-_backup_and_append_envvar \
+stackvana_backup_and_append_envvar \
     activate \
     LIBRARY_PATH \
     "${CONDA_PREFIX}/lib" \
     ":"
 
 # set rpaths to rsolve links properly at run time
-_backup_and_append_envvar \
+stackvana_backup_and_append_envvar \
     activate \
     LDFLAGS \
     "-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib" \
