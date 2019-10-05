@@ -13,39 +13,15 @@ else
 fi
 export EUPS_PKGROOT="${EUPS_PKGROOT}"
 
-# try except
-{
-    setup lsst_distrib
-} || {
-    echo "\
-
-You must run:
-
-    eups distrib install -v -t v18_1_0 lsst_distrib
-    curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
-    setup lsst_distrib
-
-in order to use the stack!
-
-Notes:
-
-  - These commands only need to be run once. After that, activating a
-    conda env with this package will call 'setup lsst_distrib' automatically.
-  - On linux everything is built from source and so this command will take
-    approximately 2 hours.
-  - On OSX, pre-built binaries will be downloaded and installed. This process
-    takes about 10 minutes.
-"
-}
-
 function stackvana_backup_and_append_envvar() {
     local way=$1
     local envvar=$2
-    local appval=$3
-    local appsep=$4
-    eval oldval="\$${envvar}"
 
     if [[ ${way} == "activate" ]]; then
+        local appval=$3
+        local appsep=$4
+        eval oldval="\$${envvar}"
+
         eval "export STACKVANA_BACKUP_${envvar}=\"${oldval}\""
         if [[ ! ${oldval} ]]; then
             eval "export ${envvar}=\"${appval}\""
@@ -87,19 +63,24 @@ stackvana_backup_and_append_envvar \
     "-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib" \
     " "
 
-# make scons happy - from the galsim conda recipe
-NEW_SCONSFLAGS=""
-if [ -n "${GXX}" ]; then
-    # SConstruct wants to find 'g++' in name, and conda will have gnu-c++ in name
-    NEW_SCONSFLAGS+="CXX=${GXX} "
-fi
-
+# set (DY)LD_LIBRARY_PATH
 if [[ `uname -s` == "Darwin" ]]; then
-    NEW_SCONSFLAGS+="CXX=${CLANGXX} "
+    stackvana_backup_and_append_envvar \
+        activate \
+        DYLD_LIBRARY_PATH \
+        "${CONDA_PREFIX}/lib" \
+        ":"
+else
+    stackvana_backup_and_append_envvar \
+        activate \
+        LD_LIBRARY_PATH \
+        "${CONDA_PREFIX}/lib" \
+        ":"
 fi
 
+# make scons happy
 stackvana_backup_and_append_envvar \
     activate \
     EUPSPKG_SCONSFLAGS \
-    "${NEW_SCONSFLAGS}" \
+    "cc=gcc" \
     " "

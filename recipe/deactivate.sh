@@ -1,4 +1,3 @@
-unsetup lsst_distrib
 unset -f setup
 unset -f unsetup
 unset EUPS_PKGROOT
@@ -10,26 +9,28 @@ unset BR2_PACKAGE_LIBICONV
 # remove stackvana env changes
 stackvana_backup_and_append_envvar \
     deactivate \
-    CPATH \
-    "" \
-    ":"
+    CPATH
 
 stackvana_backup_and_append_envvar \
     deactivate \
-    LIBRARY_PATH \
-    "" \
-    ":"
+    LIBRARY_PATH
 
 stackvana_backup_and_append_envvar \
     deactivate \
-    LDFLAGS \
-    "" \
-    " "
+    LDFLAGS
+
+if [[ `uname -s` == "Darwin" ]]; then
+    stackvana_backup_and_append_envvar \
+        deactivate \
+        DYLD_LIBRARY_PATH
+else
+    stackvana_backup_and_append_envvar \
+        deactivate \
+        LD_LIBRARY_PATH
+fi
 
 stackvana_backup_and_append_envvar \
     deactivate \
-    EUPSPKG_SCONSFLAGS \
-    "" \
-    " "
+    EUPSPKG_SCONSFLAGS
 
 unset -f stackvana_backup_and_append_envvar
