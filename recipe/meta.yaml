@@ -19,6 +19,11 @@ package:
 build:
   number: 0
   skip: True  # [win or py < 37]
+  # any package that has this as a host or build dep will install this one
+  # at run time
+  run_exports:
+    strong:
+      - {{ pin_subpackage('stackvana', exact=True) }}
 
 requirements:
   build:
@@ -60,18 +65,18 @@ requirements:
     - numexpr =2.6.9
     - future =0.17.1
     - deprecated =1.2.6
-    - xorg-libxt =1.2.0
+    - xorg-libxt =1.2.0  # [linux]
     - zlib =1.2.11
     - libiconv =1.15
 
-    # these are deps needed to compile from source on linx
+    # compilers for compiling
     - c-compiler
     - cxx-compiler
     - fortran-compiler
 
 test:
-  imports:
-    - pip
+  commands:
+    - eups -h
 
 about:
   home: https://github.com/beckermr/stackvana
