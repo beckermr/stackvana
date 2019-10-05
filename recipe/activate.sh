@@ -13,30 +13,15 @@ else
 fi
 export EUPS_PKGROOT="${EUPS_PKGROOT}"
 
-# try except
-{
-    setup lsst_distrib
-} || {
-    echo "\
-
-You must run:
-
-    eups distrib install -v -t v18_1_0 lsst_distrib
-    curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
-    setup lsst_distrib
-
-in order to use the stack!
-"
-}
-
 function stackvana_backup_and_append_envvar() {
     local way=$1
     local envvar=$2
-    local appval=$3
-    local appsep=$4
-    eval oldval="\$${envvar}"
 
     if [[ ${way} == "activate" ]]; then
+        local appval=$3
+        local appsep=$4
+        eval oldval="\$${envvar}"
+
         eval "export STACKVANA_BACKUP_${envvar}=\"${oldval}\""
         if [[ ! ${oldval} ]]; then
             eval "export ${envvar}=\"${appval}\""
@@ -64,16 +49,38 @@ stackvana_backup_and_append_envvar \
     "${CONDA_PREFIX}/include" \
     ":"
 
-# add conda nv libraries for linking
+# add conda env libraries for linking
 stackvana_backup_and_append_envvar \
     activate \
     LIBRARY_PATH \
     "${CONDA_PREFIX}/lib" \
     ":"
 
-# set rpaths to rsolve links properly at run time
+# set rpaths to resolve links properly at run time
 stackvana_backup_and_append_envvar \
     activate \
     LDFLAGS \
     "-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib" \
+    " "
+
+# set (DY)LD_LIBRARY_PATH
+if [[ `uname -s` == "Darwin" ]]; then
+    stackvana_backup_and_append_envvar \
+        activate \
+        DYLD_LIBRARY_PATH \
+        "${CONDA_PREFIX}/lib" \
+        ":"
+else
+    stackvana_backup_and_append_envvar \
+        activate \
+        LD_LIBRARY_PATH \
+        "${CONDA_PREFIX}/lib" \
+        ":"
+fi
+
+# make scons happy
+stackvana_backup_and_append_envvar \
+    activate \
+    EUPSPKG_SCONSFLAGS \
+    "cc=gcc" \
     " "

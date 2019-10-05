@@ -163,3 +163,7 @@ do
     mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
     cp "${RECIPE_DIR}/${CHANGE}.sh" "${PREFIX}/etc/conda/${CHANGE}.d/${PKG_NAME}_${CHANGE}.sh"
 done
+
+# generate the build script
+${PYTHON} ${RECIPE_DIR}/gen_build.py ${PREFIX}/bin/stackvana-run-the-build
+chmod u+x ${PREFIX}/bin/stackvana-run-the-build
