@@ -9,5 +9,9 @@ then
     exit 1
 fi
 
+echo "eups runs..."
+eups -h
+echo " "
+
 echo "environment vars:"
 env

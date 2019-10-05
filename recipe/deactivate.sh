@@ -19,16 +19,6 @@ stackvana_backup_and_append_envvar \
     deactivate \
     LDFLAGS
 
-if [[ `uname -s` == "Darwin" ]]; then
-    stackvana_backup_and_append_envvar \
-        deactivate \
-        DYLD_LIBRARY_PATH
-else
-    stackvana_backup_and_append_envvar \
-        deactivate \
-        LD_LIBRARY_PATH
-fi
-
 stackvana_backup_and_append_envvar \
     deactivate \
     EUPSPKG_SCONSFLAGS

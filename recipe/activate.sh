@@ -63,21 +63,6 @@ stackvana_backup_and_append_envvar \
     "-Wl,-rpath,${CONDA_PREFIX}/lib -L${CONDA_PREFIX}/lib" \
     " "
 
-# set (DY)LD_LIBRARY_PATH
-if [[ `uname -s` == "Darwin" ]]; then
-    stackvana_backup_and_append_envvar \
-        activate \
-        DYLD_LIBRARY_PATH \
-        "${CONDA_PREFIX}/lib" \
-        ":"
-else
-    stackvana_backup_and_append_envvar \
-        activate \
-        LD_LIBRARY_PATH \
-        "${CONDA_PREFIX}/lib" \
-        ":"
-fi
-
 # make scons happy
 stackvana_backup_and_append_envvar \
     activate \
