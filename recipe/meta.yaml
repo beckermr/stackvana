@@ -21,6 +21,9 @@ build:
   skip: True  # [win or py < 37]
 
 requirements:
+  host:
+    # - stackvana-impl =={{ version }}  # [linux]
+    - stackvana-core =={{ version }}    
   run:
     - python
     - pip
