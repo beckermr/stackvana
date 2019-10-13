@@ -18,7 +18,7 @@ package:
 
 build:
   number: 0
-  skip: True  # [win or py < 37 or linux]
+  skip: True  # [win or py < 37]
 
 requirements:
   run:
