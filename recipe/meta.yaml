@@ -19,11 +19,12 @@ package:
 build:
   number: 0
   skip: True  # [win or py < 37]
+  merge_build_host: True
 
 requirements:
   host:
     # - stackvana-impl =={{ version }}  # [linux]
-    - stackvana-core =={{ version }}    
+    - stackvana-core =={{ version }}
   run:
     - python
     - pip
