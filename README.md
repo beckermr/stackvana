@@ -19,7 +19,8 @@ installation step as described below.
 
 ### Finishing the Installation on OSX
 
-In order to finish the OSX installation, run the following commands
+In order to finish the OSX installation, run the following commands in your activated `conda` 
+environment
 
 ```bash
 $ eups install distrib -v -t ${LSST_DM_TAG} lsst_distrib
