@@ -4,4 +4,8 @@ if [[ ! ${STACKVANA_ACTIVATED} ]]; then
 fi
 
 # call eups setup to get all galsim stuff in the path
-setup lsst_distrib
+{
+    setup lsst_distrib
+} || {
+    echo "DM stack could not be activated!"
+}
