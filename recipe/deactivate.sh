@@ -1,6 +1,6 @@
 if [[ ${STACKVANA_ACTIVATED} ]]; then
     {
-        unsetup lsst_distrib
+        unsetup lsst_distrib >/dev/null 2>&1
     } || {
         echo "DM stack could not be deactivated!"
     }
