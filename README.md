@@ -23,7 +23,7 @@ In order to finish the OSX installation, run the following commands in your acti
 environment
 
 ```bash
-$ eups install distrib -v -t ${LSST_DM_TAG} lsst_distrib
+$ eups distrib install -v -t ${LSST_DM_TAG} lsst_distrib
 $ curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
 $ setup lsst_distrib
 ```
