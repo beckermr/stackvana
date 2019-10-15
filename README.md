@@ -1,5 +1,5 @@
 # stackvana
-[![Anaconda-Server Badge](https://anaconda.org/beckermr/stackvana/badges/version.svg)](https://anaconda.org/beckermr/stackvana) [![Anaconda-Server Badge](https://anaconda.org/beckermr/stackvana/badges/downloads.svg)](https://anaconda.org/beckermr/stackvana) [![Build Status](https://dev.azure.com/beckermr/beckermr%20conda%20channel/_apis/build/status/beckermr.stackvana?branchName=master)](https://dev.azure.com/beckermr/beckermr%20conda%20channel/_build/latest?definitionId=6&branchName=master)
+[![Anaconda-Server Badge](https://anaconda.org/stackvana/stackvana/badges/version.svg)](https://anaconda.org/stackvana/stackvana) [![Anaconda-Server Badge](https://anaconda.org/stackvana/stackvana/badges/downloads.svg)](https://anaconda.org/stackvana/stackvana) [![Build Status](https://dev.azure.com/beckermr/beckermr%20conda%20channel/_apis/build/status/beckermr.stackvana?branchName=master)](https://dev.azure.com/beckermr/beckermr%20conda%20channel/_build/latest?definitionId=6&branchName=master)
 
 a ``conda``-based LSST DM stack installation
 
@@ -10,7 +10,7 @@ a ``conda``-based LSST DM stack installation
 It is best to create a brand new ``conda`` environment for the DM stack.
 
 ```bash
-conda create -c beckermr -n mystack stackvana
+conda create -c stackvana -n mystack stackvana
 ```
 
 On Linux, the command above will create a ``conda`` environment with a full installation of
