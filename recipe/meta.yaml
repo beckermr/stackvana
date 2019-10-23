@@ -24,8 +24,7 @@ requirements:
   run:
     - python
     - pip
-    - stackvana-impl =={{ version }}  # [linux]
-    - stackvana-core =={{ version }}  # [osx]
+    - stackvana-impl =={{ version }}
 
 test:
   imports:
