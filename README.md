@@ -14,24 +14,7 @@ conda create -c stackvana -n mystack stackvana
 ```
 
 On Linux, the command above will create a ``conda`` environment with a full installation of
-the DM stack, activated and ready to use. On OSX, you will need to run a further
-installation step as described below.
-
-### Finishing the Installation on OSX
-
-In order to finish the OSX installation, run the following commands in your activated `conda` 
-environment
-
-```bash
-$ eups distrib install -v -t ${LSST_DM_TAG} lsst_distrib
-$ curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
-$ setup lsst_distrib
-```
-
-These commands follow the LSST DM
-[documentation](https://pipelines.lsst.io/install/newinstall.html#install-science-pipelines-packages).
-They will download the LSST project's prebuilt binaries for OSX and install them with `eups`.
-
+the DM stack, activated and ready to use. 
 
 ## Important Gotchas
 
@@ -47,18 +30,12 @@ They will download the LSST project's prebuilt binaries for OSX and install them
 
 ## Notes about this DM stack Installation
 
-- On Linux, the full stack has been built from source using the `conda` compilers.
-- On OSX, the core stack routines are installed with the binaries from the LSST
-  project by the user according to the directions above. I was unable to get the
-  stack to fully build with the `conda` compilers on OSX.
+- On Linux and OSX, the full stack has been built from source using the `conda` compilers.
 - On both Linux and OSX, this package carefully sets up `eups` within the
   `conda` environment when the `conda` environment is activated. Upon deactivation,
   all of the changes from `eups` and this package are removed. This process leaves
   the original environment as it was and should help enable more than one installation
   of the DM stack to coexist nicely.
-- On OSX during the first installation, you may see some errors from `eups` related to
-  trying to setup the DM stack package `lsst_distrib`. Once the additional installation
-  steps above are completed, these errors should go away.
 - This `conda` package injects the variable `LSST_DM_TAG` into your environment. This
   variable is the value of the `eups` tag that corresponds to the `stackvana`
   version.
