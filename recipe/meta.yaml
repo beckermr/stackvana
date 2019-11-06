@@ -28,6 +28,7 @@ outputs:
     requirements:
       run:
         - python
+        - pip
         - {{ pin_subpackage('stackvana-impl', exact=True) }}
     test:
       script: run_test_stackvana.sh

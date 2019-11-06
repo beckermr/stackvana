@@ -1,6 +1,7 @@
 echo "=========================================================================="
 env | sort
 echo "=========================================================================="
+echo " "
 
 if [[ ! ${STACKVANA_ACTIVATED} ]]; then
     echo "the stackvana-core package must be activated in order to build the stack!"
@@ -133,7 +134,6 @@ done
 
 # clean out any documentation
 # this bloats the packages, is usually a ton of files, and is not needed
-echo "Cleaning up extra data..."
 compgen -G "${EUPS_PATH}/*/*/*/doc/html/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/doc/xml/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/share/doc/*" | xargs rm -rf
