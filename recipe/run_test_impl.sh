@@ -7,6 +7,7 @@ echo -n "setting up 'cfitsio' ... "
 val=`setup cfitsio 2>&1`
 if [[ ! ${val} ]]; then
     echo "worked!"
+    setup cfitsio
     fpack -V
 else
     echo "failed!"
