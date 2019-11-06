@@ -26,6 +26,9 @@ outputs:
     version: {{ version }}
     script: build_stackvana.sh
     requirements:
+      host:
+        - python
+        - pip
       run:
         - python
         - pip
