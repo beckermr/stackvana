@@ -14,6 +14,7 @@ if [[ ! $LSST_CONDA_ENV_NAME ]]; then
 fi
 
 # make sure lsst_distrib is around
-if [[ ! `eups list -s | grep "lsst_distrib"` ]]; then
+setup cfitsio
+if [[ ! `eups list -s | grep "cfitsio"` ]]; then
     exit 1
 fi

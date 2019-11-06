@@ -95,7 +95,7 @@ fi
 
 echo "Running eups install..."
 {
-    eups distrib install ${verbose} -t ${LSST_DM_TAG} cfitsio
+    eups distrib install ${verbose} -t ${LSST_DM_TAG} lsst_distrib
 } || {
     _report_errors_and_exit
 }
