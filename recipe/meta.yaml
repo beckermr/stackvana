@@ -1,4 +1,4 @@
-{% set name = "stackvana-pkg" %}
+{% set name = "stackvana" %}
 # LSST DM versions are prefixed with letters
 #
 #  - a weekly build is 'w_2018_50'
@@ -21,34 +21,18 @@ build:
   skip: True  # [win or py < 37]
   merge_build_host: True
 
-outputs:
-  - name: stackvana
-    version: {{ version }}
-    script: build_stackvana.sh
-    requirements:
-      host:
-        - python
-        - pip
-      run:
-        - python
-        - pip
-        - {{ pin_subpackage('stackvana-impl', exact=True) }}
-    test:
-      script: run_test_stackvana.sh
+requirements:
+  host:
+    - python
+    - pip
+    - stackvana-core =={{ version }}
+  run:
+    - python
+    - pip
 
-  - name: stackvana-impl
-    version: {{ version }}
-    script: build_impl.sh
-    requirements:
-      host:
-        - stackvana-core =={{ version }}
-        - python
-        - pip
-      run:
-        - python
-        - pip
-    test:
-      script: run_test_impl.sh
+test:
+  imports:
+    - eups
 
 about:
   home: https://github.com/beckermr/stackvana

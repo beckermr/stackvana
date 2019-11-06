@@ -139,3 +139,9 @@ compgen -G "${EUPS_PATH}/*/*/*/doc/xml/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/share/doc/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/share/man/*" | xargs rm -rf
 echo " "
+
+# get the (de)activate scripts
+for CHANGE in "activate" "deactivate"; do
+    mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
+    cp "${RECIPE_DIR}/${CHANGE}.sh" "${PREFIX}/etc/conda/${CHANGE}.d/${PKG_NAME}_${CHANGE}.sh"
+done
