@@ -10,32 +10,29 @@
 #  - for a major version 'v18_1', the conda version is '18.1.0'
 #
 # Note the exta micro version in order to match the tags in the DM eups system.
-{% set version = "2019.40w" %}
+{% set version = "2019.44w" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win or py < 37]
+  merge_build_host: True
 
 requirements:
+  host:
+    - python
+    - pip
+    - stackvana-core =={{ version }}
   run:
     - python
     - pip
-    - stackvana-impl =={{ version }}
 
 test:
   imports:
     - eups
-  commands:
-    # is eups around?
-    - eups -h
-    # make sure env is activated
-    - if [[ ! $STACKVANA_ACTIVATED ]]; then exit 1; fi
-    - if [[ ! $LSST_HOME ]]; then exit 1; fi
-    - if [[ ! $LSST_CONDA_ENV_NAME ]]; then exit 1; fi
 
 about:
   home: https://github.com/beckermr/stackvana
