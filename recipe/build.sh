@@ -94,24 +94,11 @@ if [[ `uname -s` == "Darwin" ]]; then
 fi
 
 echo "Running eups install..."
-
-# this dep appears to be missing in the regular install
-{
-    eups distrib install ${verbose} -t ${LSST_DM_TAG} pipe_base
-} || {
-    _report_errors_and_exit
-}
-
-setup pipe_base
-
 {
     eups distrib install ${verbose} -t ${LSST_DM_TAG} lsst_distrib
 } || {
     _report_errors_and_exit
 }
-
-unsetup pipe_base
-
 echo " "
 
 # undo the shim
