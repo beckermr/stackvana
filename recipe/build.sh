@@ -73,7 +73,12 @@ function _report_errors_and_exit {
 }
 
 echo "Patching sconsUtils for debugging..."
-pushd ${LSST_HOME}/stackvana_sconsUtils/python/lsst/sconsUtils
+if [[ `uname -s` == "Darwin" ]]; then
+    sconsdir="${LSST_HOME}/stack/miniconda/DarwinX86/sconsUtils/19.0.0-3-g1276964/python/lsst/sconsUtils"
+else
+    sconsdir="${LSST_HOME}/stack/miniconda/Linux64/sconsUtils/19.0.0-3-g1276964/python/lsst/sconsUtils"
+fi
+pushd ${sconsdir}
 patch tests.py ${RECIPE_DIR}/0001-print-test-env-sconsUtils.patch
 if [[ "$?" != "0" ]]; then
     exit 1
@@ -89,7 +94,15 @@ echo " "
 if [[ `uname -s` == "Darwin" ]]; then
     echo "Making the python shim for OSX..."
     mv ${PREFIX}/bin/python3.7 ${PREFIX}/bin/python3.7.bak
-    cp ${RECIPE_DIR}/python3.7 ${PREFIX}/bin/python3.7
+    echo "#!/bin/bash
+    if [[ \${LSST_LIBRARY_PATH} ]]; then
+        DYLD_LIBRARY_PATH=\${LSST_LIBRARY_PATH} \\
+        DYLD_FALLBACK_LIBRARY_PATH=\${LSST_LIBRARY_PATH} \\
+        python3.7.bak \"\$@\"
+    else
+        python3.7.bak \"\$@\"
+    fi
+" > ${PREFIX}/bin/python3.7
     echo " "
 fi
 
@@ -134,6 +147,8 @@ done
 
 # clean out any documentation
 # this bloats the packages, is usually a ton of files, and is not needed
+compgen -G "${EUPS_PATH}/*/*/*/tests/.tests/*" | xargs rm -rf
+compgen -G "${EUPS_PATH}/*/*/*/tests/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/doc/html/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/doc/xml/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/share/doc/*" | xargs rm -rf
