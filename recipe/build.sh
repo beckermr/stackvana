@@ -107,6 +107,9 @@ if [[ `uname -s` == "Darwin" ]]; then
     echo " "
 fi
 
+# make a symlink for eigen
+ln -s $PREFIX/lsst_home/stack/miniconda/Linux64/eigen/3.3.7.lsst2/include/eigen3 ${PREFIX}/include/eigen3
+
 echo "Running eups install..."
 {
     eups distrib install ${verbose} -t ${LSST_DM_TAG} lsst_distrib
