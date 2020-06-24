@@ -108,7 +108,9 @@ if [[ `uname -s` == "Darwin" ]]; then
 fi
 
 # make a symlink for eigen
-# echo "Making eigen symlinks..."
+echo "Making eigen symlinks..."
+ln -s ${PREFIX}/include/eigen3/Eigen ${PREFIX}/include/Eigen
+
 # {
 #     eups distrib install ${verbose} -t ${LSST_DM_TAG} eigen
 # } || {
