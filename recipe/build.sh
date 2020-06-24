@@ -109,10 +109,8 @@ fi
 
 # make a symlink for eigen
 echo "Making eigen symlinks..."
-ln -s $PREFIX/lsst_home/stack/miniconda/Linux64/eigen/3.3.7.lsst2/include/eigen3 ${PREFIX}/include/eigen3
 ln -s $PREFIX/lsst_home/stack/miniconda/Linux64/eigen/3.3.7.lsst2/include/eigen3/Eigen ${PREFIX}/include/Eigen
 ls -lah ${PREFIX}/include/Ei*
-ls -lah ${PREFIX}/include/ei*
 echo " "
 
 echo "Running eups install..."
