@@ -109,10 +109,23 @@ fi
 
 # make a symlink for eigen
 echo "Making eigen symlinks..."
-ln -s $PREFIX/lsst_home/stack/miniconda/Linux64/eigen/3.3.7.lsst2/include/eigen3/Eigen ${PREFIX}/include/Eigen
-ls -lah ${PREFIX}/include/Ei*
+{
+    eups distrib install ${verbose} -t ${LSST_DM_TAG} eigen
+} || {
+    _report_errors_and_exit
+}
 echo " "
-ls -lah $PREFIX/lsst_home/stack/miniconda/Linux64/eigen/3.3.7.lsst2
+
+if [[ `uname -s` == "Darwin" ]]; then
+    system_kind='DarwinX86'
+else
+    system_kind='Linux64'
+fi
+
+ln -s $PREFIX/lsst_home/stack/miniconda/${system_kind}/eigen/3.3.7.lsst2/include/eigen3 ${PREFIX}/include/eigen3
+ls -lah ${PREFIX}/include/ei*
+echo " "
+ls -lah $PREFIX/lsst_home/stack/miniconda/${system_kind}/eigen/3.3.7.lsst2
 echo " "
 
 echo "Running eups install..."
