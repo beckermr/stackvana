@@ -29,6 +29,7 @@ requirements:
     - stackvana-afw =={{ version }}
     - cfitsio
     - curl
+    - eigen
     - fftw
     - gsl
     - hdf5
@@ -44,6 +45,7 @@ requirements:
     - stackvana-afw =={{ version }}
     - cfitsio
     - curl
+    - eigen
     - fftw
     - gsl
     - hdf5
