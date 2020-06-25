@@ -14,18 +14,13 @@ conda create -c stackvana -n mystack stackvana
 ```
 
 On Linux, the command above will create a ``conda`` environment with a full installation of
-the DM stack, activated and ready to use. 
+the DM stack, activated and ready to use.
 
 ## Important Gotchas
 
 - In general, it is not safe to update to a new weekly build tag inside of an
   existing `stackvana` environment. This process **may** work, but it may fail in
   unexpected ways.
-- The `conda` dependencies of `stackvana` are pinned up to their micro versions.
-  If you need a newer version of one of these packages to move to the next weekly
-  tag, you will need to either download a new `stackvana` version that matches the
-  desired tag, or you will need to force install the new dependence in the existing
-  `conda` environment.
 
 
 ## Notes about this DM stack Installation
