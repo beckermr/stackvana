@@ -111,25 +111,6 @@ fi
 echo "Making eigen symlinks..."
 ln -s ${PREFIX}/include/eigen3/Eigen ${PREFIX}/include/Eigen
 
-# {
-#     eups distrib install ${verbose} -t ${LSST_DM_TAG} eigen
-# } || {
-#     _report_errors_and_exit
-# }
-# echo " "
-#
-# if [[ `uname -s` == "Darwin" ]]; then
-#     system_kind='DarwinX86'
-# else
-#     system_kind='Linux64'
-# fi
-#
-# ln -s $PREFIX/lsst_home/stack/miniconda/${system_kind}/eigen/3.3.7.lsst2/include/eigen3 ${PREFIX}/include/eigen3
-# ls -lah ${PREFIX}/include/ei*
-# echo " "
-# ls -lah $PREFIX/lsst_home/stack/miniconda/${system_kind}/eigen/3.3.7.lsst2
-# echo " "
-
 echo "Running eups install..."
 {
     eups distrib install ${verbose} -t ${LSST_DM_TAG} lsst_distrib
@@ -137,6 +118,9 @@ echo "Running eups install..."
     _report_errors_and_exit
 }
 echo " "
+
+# undo the symlink
+rm -f ${PREFIX}/include/Eigen
 
 # undo the shim
 if [[ `uname -s` == "Darwin" ]]; then

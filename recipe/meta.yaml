@@ -29,7 +29,6 @@ requirements:
     - stackvana-afw =={{ version }}
     - cfitsio
     - curl
-    - eigen
     - fftw
     - gsl
     - hdf5
@@ -39,13 +38,12 @@ requirements:
     - liblapack
     - liblapacke
     - mpich
-    - numpy
+    - numpy 1.16.*
   run:
     - python
     - stackvana-afw =={{ version }}
     - cfitsio
     - curl
-    - eigen
     - fftw
     - gsl
     - hdf5
