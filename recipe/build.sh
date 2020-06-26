@@ -93,10 +93,6 @@ if [[ `uname -s` == "Darwin" ]]; then
     echo " "
 fi
 
-# make a symlink for eigen
-echo "Making eigen symlinks..."
-ln -s ${PREFIX}/include/eigen3/Eigen ${PREFIX}/include/Eigen
-
 echo "Running eups install..."
 {
     eups distrib install ${verbose} -t ${LSST_DM_TAG} lsst_distrib
@@ -104,9 +100,6 @@ echo "Running eups install..."
     _report_errors_and_exit
 }
 echo " "
-
-# undo the symlink
-rm -f ${PREFIX}/include/Eigen
 
 # undo the shim
 if [[ `uname -s` == "Darwin" ]]; then
