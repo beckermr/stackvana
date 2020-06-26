@@ -93,6 +93,8 @@ if [[ `uname -s` == "Darwin" ]]; then
     echo " "
 fi
 
+export EUPSPKG_NJOBS=1
+
 echo "Running eups install..."
 {
     eups distrib install ${verbose} -t ${LSST_DM_TAG} lsst_distrib
