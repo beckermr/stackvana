@@ -93,7 +93,7 @@ if [[ `uname -s` == "Darwin" ]]; then
     echo " "
 fi
 
-export EUPSPKG_NJOBS=1
+export EUPSPKG_NJOBS=2
 
 echo "Running eups install..."
 {
