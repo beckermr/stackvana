@@ -1,4 +1,6 @@
 
+set -ex
+
 # is eups around?
 eups -h
 echo " "
