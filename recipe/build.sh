@@ -72,15 +72,6 @@ function _report_errors_and_exit {
     exit 1
 }
 
-echo "Patching sconsUtils for debugging..."
-pushd ${LSST_HOME}/stackvana_sconsUtils/python/lsst/sconsUtils
-patch tests.py ${RECIPE_DIR}/0001-print-test-env-sconsUtils.patch
-if [[ "$?" != "0" ]]; then
-    exit 1
-fi
-popd
-echo " "
-
 # this shim is here to bypass SIP for running the OSX tests.
 # the conda-build prefixes are very long and so the pytest
 # command line tool gets /usr/bin/env put in for the prefix.
@@ -89,9 +80,20 @@ echo " "
 if [[ `uname -s` == "Darwin" ]]; then
     echo "Making the python shim for OSX..."
     mv ${PREFIX}/bin/python3.7 ${PREFIX}/bin/python3.7.bak
-    cp ${RECIPE_DIR}/python3.7 ${PREFIX}/bin/python3.7
+    echo "#!/bin/bash
+    if [[ \${LSST_LIBRARY_PATH} ]]; then
+        DYLD_LIBRARY_PATH=\${LSST_LIBRARY_PATH} \\
+        DYLD_FALLBACK_LIBRARY_PATH=\${LSST_LIBRARY_PATH} \\
+        python3.7.bak \"\$@\"
+    else
+        python3.7.bak \"\$@\"
+    fi
+" > ${PREFIX}/bin/python3.7
+    chmod u+x ${PREFIX}/bin/python3.7
     echo " "
 fi
+
+export EUPSPKG_NJOBS=2
 
 echo "Running eups install..."
 {
@@ -134,6 +136,9 @@ done
 
 # clean out any documentation
 # this bloats the packages, is usually a ton of files, and is not needed
+compgen -G "${EUPS_PATH}/*/*/*/tests/.tests/*" | xargs rm -rf
+compgen -G "${EUPS_PATH}/*/*/*/tests/*" | xargs rm -rf
+compgen -G "${EUPS_PATH}/*/*/*/bin.src/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/doc/html/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/doc/xml/*" | xargs rm -rf
 compgen -G "${EUPS_PATH}/*/*/*/share/doc/*" | xargs rm -rf
