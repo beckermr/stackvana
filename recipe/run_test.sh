@@ -18,7 +18,9 @@ fi
 
 # try setting things up
 echo -n "setting up 'afw' ... "
+set +ex
 val=`setup afw 2>&1`
+set -ex
 if [[ ! ${val} ]]; then
     echo "worked!"
 else
