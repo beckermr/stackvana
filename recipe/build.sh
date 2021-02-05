@@ -3,6 +3,8 @@
 export EUPSPKG_NJOBS=2
 stackvana-build lsst_distrib
 
+ln -s ${PREFIX}/include/eigen3/Eigen ${PREFIX}/include/Eigen 
+
 # get the (de)activate scripts
 for CHANGE in "activate" "deactivate"; do
     mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
