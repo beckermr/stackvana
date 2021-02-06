@@ -14,11 +14,9 @@ eups distrib install -v -t ${LSST_DM_TAG} eigen
 if [[ `uname -s` == "Darwin" ]]; then
     eigendir=$(compgen -G "${EUPS_PATH}/DarwinX86/eigen/3.3.7.lsst2*")
 else
-    eigendir="${EUPS_PATH}/Linux64/eigen/3.3.7.lsst2"
+    eigendir=$(compgen -G "${EUPS_PATH}/Linux64/eigen/3.3.7.lsst2*")
 fi
 ln -s ${eigendir}/include/eigen3/Eigen ${PREFIX}/include/Eigen
-
-ls -lah ${PREFIX}/include/Eigen
 
 stackvana-build lsst_distrib
 
