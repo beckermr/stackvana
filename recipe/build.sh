@@ -11,12 +11,8 @@ export EUPSPKG_NJOBS=2
 echo "
 Building eigen and making the symlinks..."
 eups distrib install -v -t ${LSST_DM_TAG} eigen
-if [[ `uname -s` == "Darwin" ]]; then
-    eigendir="${EUPS_PATH}/DarwinX86/eigen/3.3.7.lsst2"
-else
-    eigendir="${EUPS_PATH}/Linux64/eigen/3.3.7.lsst2"
-fi
-ln -s ${eigendir}/include/Eigen ${PREFIX}/include/Eigen
+  eigendir=$(compgen -G "${EUPS_PATH}/*/eigen/3.3.7.lsst2*")
+ln -s ${eigendir}/include/eigen3/Eigen ${PREFIX}/include/Eigen
 
 stackvana-build lsst_distrib
 
