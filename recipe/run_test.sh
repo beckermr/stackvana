@@ -32,4 +32,4 @@ echo " "
 #     exit 1
 # fi
 
-python -c "import import lsst.kht"
+python -c "import lsst.kht"
