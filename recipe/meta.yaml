@@ -27,7 +27,7 @@ requirements:
     - python
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - stackvana-afw =={{ version }}
+    - stackvana-core =={{ version }}
     - cfitsio
     - curl
     - fftw
@@ -42,7 +42,7 @@ requirements:
     - mpich
   run:
     - python
-    - stackvana-afw =={{ version }}
+    - stackvana-core =={{ version }}
     - cfitsio
     - curl
     - fftw
