@@ -18,8 +18,7 @@ else
 fi
 ln -s ${eigendir}/include/eigen3/Eigen ${PREFIX}/include/Eigen
 
-eups distrib install -v -t ${LSST_DM_TAG} kht
-stackvana-build pipe_tasks
+stackvana-build kht
 
 # get the (de)activate scripts
 for CHANGE in "activate" "deactivate"; do
