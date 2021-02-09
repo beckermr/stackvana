@@ -28,6 +28,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - stackvana-core =={{ version }}
+    - stackvana-afw =={{ version }}
     - cfitsio
     - curl
     - fftw
@@ -43,6 +44,7 @@ requirements:
   run:
     - python
     - stackvana-core =={{ version }}
+    - stackvana-afw =={{ version }}
     - cfitsio
     - curl
     - fftw

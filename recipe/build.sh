@@ -10,7 +10,7 @@ export EUPSPKG_NJOBS=2
 # now build eigen and symlink it to where it can be found by default
 echo "
 Building eigen and making the symlinks..."
-eups distrib install -v -t ${LSST_DM_TAG} eigen
+stackvana-build eigen
 if [[ `uname -s` == "Darwin" ]]; then
     eigendir=$(compgen -G "${EUPS_PATH}/DarwinX86/eigen/3.3.7.lsst2*")
 else
@@ -19,6 +19,7 @@ fi
 ln -s ${eigendir}/include/eigen3/Eigen ${PREFIX}/include/Eigen
 
 stackvana-build kht
+stackvana-build pipe_tasks
 
 # get the (de)activate scripts
 for CHANGE in "activate" "deactivate"; do

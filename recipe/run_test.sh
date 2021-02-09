@@ -27,9 +27,10 @@ else
 fi
 echo " "
 
+setup kht
+python -c "import lsst.kht"
+
 # # make sure lsst_distrib is around
 # if [[ ! `eups list -s | grep "lsst_distrib"` ]]; then
 #     exit 1
 # fi
-
-python -c "import lsst.kht"
